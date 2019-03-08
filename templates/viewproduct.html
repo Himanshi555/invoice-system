@@ -1,0 +1,98 @@
+{% extends "header.html"%}
+
+{% block body_block%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+<body>
+  <div class="content-inner">
+    <!-- Page Header-->
+    <header class="page-header">
+      <div class="container-fluid">
+        <h2 class="no-margin-bottom">View Product</h2>
+      </div>
+    </header>
+    <!-- Breadcrumb-->
+    <div class="breadcrumb-holder container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+        <li class="breadcrumb-item active">View Product</li>
+      </ul>
+      <form class=""method="POST">
+        {% csrf_token %}
+        <div class="search">
+          <input class="" type="text" name="search" placeholder="search for product category...">
+          <input class="" type="submit" name="srch" value="Search">
+        </div>
+
+
+      </form>
+
+
+
+
+      <table border="1 px solid">
+      <tr>
+        <th>Product_Id</th>
+        <!-- <th>Product_No</th>
+        <th>Title</th> -->
+        <th>Image</th>
+        <!-- <th>Price</th>
+        <th>Offer</th> -->
+        <!-- <th>Brand</th>
+        <th>Catalog</th> -->
+        <!-- <th>Size</th>
+        <th>Weight</th> -->
+        <!-- <th>Category</th>
+        <th>Sub-category</th> -->
+        <th>Category</th>
+        <!-- <th>Sub_Category</th>
+        <th>Product_Type</th>
+        <th>Quantity</th>
+        <th>Description</th>
+        <th>Details</th>
+        <th>Action</th> -->
+      </tr>
+      {% if view %}
+      <tr>
+        {% for v in view%}
+        <td>{{v.id}}</td>
+        <!-- <td>{{view.Product_No}}</td>
+        <td>{{view.Title}}</td> -->
+        <td>{{v.image}}</td>
+        <!-- <td>{{view.Price}}</td>
+        <td>{{view.Offer}}</td>
+        <td>{{view.Size}}</td>
+        <td>{{view.Weight_per_kg}}</td> -->
+        <td>{{v.Category}}</td>
+        <!-- <td>{{view.Sub_Category}}</td>
+        <td>{{view.Product_Type}}</td>
+        <td>{{view.Quantity}}</td>
+        <td>{{view.Product_Description}}</td>
+        <td>{{view.Details}}</td> -->
+        <td><a href="{% url 'uproduct' v.pk%}">Edit</a><a class="del" href="{% url 'dproduct' v.pk%}">Delete</a></td>
+      </tr>
+      {%endfor%}
+      {% endif %}
+      </table>
+
+    </div>
+    <style>
+      .search{
+        width:300px;
+        margin-left:300px;
+      }
+
+      .del{
+        color:black;
+        background:red;
+      }
+    </style>
+
+</body>
+{% endblock %}
+
+</html>

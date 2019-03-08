@@ -1,0 +1,21 @@
+
+<body>
+<h2>Login here..</h2>
+
+<form method="POST">
+  {% csrf_token %}
+
+  {{form.as_p}}
+  <!-- <label for="username">Username :</label>
+  <input id="us" type="text" name="username" placeholder="Enter Username">
+  <br><br>
+  <label for="password">Password :</label>
+  <input id="uss" type="password" name="password" value="">
+  <br><br>
+
+  <p>{{error}}</p> -->
+  <input type="submit" name="submit" value="Login">
+
+</form>
+
+</body>

@@ -1,0 +1,107 @@
+{% extends "header.html" %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+{% block body_block %}
+<div class="container">
+  <h2>{{d_invoice.order_number}} Details:</h2>
+  <!-- <p>The .table-striped class adds zebra-stripes to a table:</p> -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <td>{{d_invoice.order_number}}</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      	<th>Invoice Number</th>
+        <td>{{d_invoice.invoice_number}}</td>
+      </tr>
+      <tr>
+      	<th>Product Name</th>
+        <!-- <td>{{p_invoice.product_name}}</td> -->
+        <td>[{% for s in d_invoice.product_set.all %}
+          {{s.product_name}},
+        {% endfor %}]</td>
+      </tr>
+      <tr>
+      	<th>Product ID</th>
+        <td>[{% for s in d_invoice.product_set.all %}
+          {{s.product_id}},
+        {% endfor %}]</td>
+      </tr>
+      <tr>
+      	<th>Quantity/kg.</th>
+        <td>[{% for s in d_invoice.product_set.all %}
+          {{s.quantity}},
+        {% endfor %}]</td>
+      </tr>
+      <tr>
+      	<th>Price</th>
+        <td>[{% for s in d_invoice.product_set.all %}
+          {{s.price}},
+        {% endfor %}]</td>
+      </tr>
+      <tr>
+      	<th>Size</th>
+        <td>[{% for s in d_invoice.product_set.all %}
+          {{s.size}},
+        {% endfor %}]</td>
+      </tr>
+      <tr>
+      	<th>User Full Name</th>
+        <td>{{d_invoice.user_full_name}}</td>
+      </tr>
+      <tr>
+      	<th>Email</th>
+        <td>{{d_invoice.email}}</td>
+      </tr>
+      <tr>
+      	<th>Contact Number</th>
+        <td>{{d_invoice.contact_number}}</td>
+      </tr>
+      <tr>
+      	<th>Address</th>
+        <td>{{d_invoice.address}}</td>
+      </tr>
+      <tr>
+      	<th>Shipping User Full Name</th>
+        <td>{{d_invoice.shipping_user_full_name}}</td>
+      </tr>
+      <tr>
+      	<th>Shipping User Contact No.</th>
+        <td>{{d_invoice.shipping_user_contact_no}}</td>
+      </tr>
+      <tr>
+      	<th>City</th>
+        <td>{{d_invoice.city}}</td>
+      </tr>
+      <tr>
+      	<th>Country</th>
+        <td>{{d_invoice.country}}</td>
+      </tr>
+      <tr>
+      	<th>Zip Code</th>
+        <td>{{d_invoice.zipcode}}</td>
+      </tr>
+      <tr>
+      	<th>Client GST</th>
+        <td>{{d_invoice.client_gst}}</td>
+      </tr>
+      <tr>
+      	<th>Mode of Payment</th>
+        <td>{{d_invoice.mode_of_payment}}</td>
+      </tr>
+      <tr>
+      	<th>Date and Time</th>
+        <td>{{d_invoice.date_and_time}}</td>
+      </tr>
+      <tr>
+      	<th>Shipping Cost</th>
+        <td>{{d_invoice.shipping_cost}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

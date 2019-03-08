@@ -1,0 +1,101 @@
+{% extends "header.html" %}
+
+{% block body_block %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ticket detail</title>
+  </head>
+  <body>
+    <div class="content-inner">
+      <!-- Page Header-->
+      <header class="page-header">
+        <div class="container-fluid">
+          <h2 class="no-margin-bottom">Ticket Detail</h2>
+        </div>
+      </header>
+
+
+      <div class="container">
+      <strong>  <em> {{ticket.user|capfirst}}</em></strong>
+        <small style="float:right">{{ticket.date_and_time}}</small><br>
+           <div class="img-thumbnail">
+             <h6>subject: {{ ticket.subject }}</h6>
+             <h6> description:</h6>{{ ticket.description }}
+           </div>
+        </div>
+    <!-- </table> -->
+
+    <br><br>
+    <hr>
+
+<div class="main-comment-section">
+    <div class="container-fluid">
+        <div class="container-fluid mt-2">
+             <div class="form-droup row">
+
+			    <form action="" method="POST">
+				   {% csrf_token %}
+				   <em><p>Comment--</p></em>
+				   {{c_form.description}}
+				   <br>
+				   {% if request.user.is_authenticated%}
+					 <input type="submit" value="Submit" class="btn btn-outline-success">
+				   {% else %}
+					 <input type="submit" value="Submit" class="btn btn-outline-success" disabled>
+				   {% endif %}
+			    </form>
+            </div>
+		</div>
+          <br><br>
+
+        <div class="jumbotron">
+			{{comments.count}} Comment{{comments|pluralize}}
+			{% for c in comments %}
+			<blockquote class="blockquote">
+			  <small>  <p class="mb-0">{{c.description}}</p></small>
+				<footer class="blockquote-footer">by <small><cite title="Source Title">{{c.user|capfirst}}</cite></small>
+					<button type="button" name="button" class="reply-btn btn btn-outline-dark btn-sm ml-2">Reply</button>
+				</footer>
+			</blockquote>
+
+			 <div class="replied-comments container mt-2" style="display:none">
+				{% for reply in c.replies.all%}
+				  <blockquote class="blockquote">
+					<small><p class="mb-0">{{reply.description}}</p></small>
+					<footer class="blockquote-footer">by <small><cite title="Source Title">{{reply.user|capfirst}}</cite></small></footer>
+				  </blockquote>
+				{% endfor%}
+				<div class="form-droup row">
+				  <form action="" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="comment_id" value="{{ c.id }}">
+					{{c_form.description}}
+					<br>
+					{% if request.user.is_authenticated%}
+					  <input type="submit" value="Submit" class="btn btn-outline-success">
+					{% else %}
+					  <input type="submit" value="Submit" class="btn btn-outline-success" disabled>
+					{% endif %}
+				  </form>
+
+			    </div>
+
+            </div>
+
+           {% endfor %}
+        </div>
+    </div>
+</div></div>
+<style>
+.jumbotron{
+  background: #dc61358a;
+}
+.img-thumbnail{
+  background: #dc61358a;
+}
+</style>
+
+</body>
+{% endblock %}
+</html>

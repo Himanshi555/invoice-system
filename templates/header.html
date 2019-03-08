@@ -1,0 +1,1051 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Basic Billing Web Application</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static "css/fontastic.css" %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static "css/style.default.css" %}" id="theme-stylesheet"><link id="new-stylesheet" rel="stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static "css/custom.css" %}">
+  </head>
+<body>
+    <div class="page">
+      <!-- Main Navbar-->
+       <header class="header">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+              <!-- Navbar Header-->
+              <div class="navbar-header">
+                <!-- Navbar Brand --><a href="#" class="navbar-brand">
+                  <div class="brand-text brand-big"><span>Vanisb </span><strong> Dashboard</strong></div>
+                <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
+                <!-- <input type="button" name="register" value="Register"> -->
+
+                <div class="signup">
+                  <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">Register</button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <a href="{% url 'userapp:register' %}">Register Admin</a>
+                      <a href="{% url 'userapp:employee' %}">Register Employee</a>
+                      <a href="{% url 'userapp:customer' %}">Register Customer</a>
+                    </div>
+                  </div>
+
+                  <!-- <button type="button" name="button" onclick="{url 'userapp:register'}">Register here..</button> -->
+                  {% if user.is_authenticated%}
+                    Hi {{user.username}}
+                    <a class="dp"href="{% url 'logout' %}">Logout</a>
+
+                  {% else %}
+                    <!-- <p>you are not logged in..</p> -->
+                    <a class="dp" href="{% url 'login' %}">Login</a>
+                  {% endif %}
+
+                </div>
+                <script>
+                /* When the user clicks on the button,
+                toggle between hiding and showing the dropdown content */
+                function myFunction() {
+                  document.getElementById("myDropdown").classList.toggle("show");
+                }
+                // Close the dropdown if the user clicks outside of it
+                window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                      var openDropdown = dropdowns[i];
+                      if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                      }
+                    }
+                  }
+                }
+              </script>
+
+              </div>
+            </div>
+          </div>
+        </nav>
+
+<style>
+.dropbtn {
+  background-color:#602323E6;
+  color: white;
+  font: bold 11px Arial;
+  text-decoration: none;
+  width: 100px;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  /* padding: 16px;
+  font-size: 16px;
+  width: 150px;
+  border: none;
+  cursor: pointer; */
+
+}
+.dropbt{
+  float:right;
+  background-color:#602323E6;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  width: 150px;
+  border: none;
+
+  cursor: pointer;
+}
+.dp{
+  font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #602323E6;
+  color: #333333;
+  width: 100px;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #4D1616;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #602323E6;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: blue;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #4D1616;}
+
+.show {display: block;}
+.signup{
+  float: right;
+  margin-left: 800px;
+}
+.view-prods {
+    width: 600px;
+    z-index: 9999;
+    padding: 0;
+    margin: -74px 0 0 0;
+    position: relative;
+    top: 71px;
+    left: 0;
+}
+
+.mynotify {
+    width:  auto !important;
+    margin: 0 auto;
+}
+
+span.conterss {
+    position: absolute;
+    background: #2cd460;
+    color: #fff;
+    top: 3px;
+    width: 18px;
+    text-align: center;
+    font-size: 11px;
+    border-radius: 10em;
+    height: 18px;
+    left: -10px;
+}
+
+.mynotify .view-prods {
+    margin: 0 10px !important;
+    display: inline-block;
+    width: auto;
+    vertical-align: top;
+}
+
+.view-prods-inner {
+    position: absolute;
+    z-index: 999999; display:none;
+    background: #eeeeee;
+    height:auto;
+    overflow:auto;
+}
+
+.view-prods-inner {}.mynotify {
+    width:  500px;
+    margin: 0 auto;
+}
+
+.mynotify .view-prods {
+    margin: 0;
+    display: inline-block;
+    width: auto;
+    vertical-align: top;
+}
+
+.view-prods-inner-tab {
+    border-bottom: 1px solid #d7d6d6;
+    color: #000;
+    font-size: 11px;
+    padding: 7px 10px;
+}
+
+ .view-enq {
+    width: 400px;
+    z-index: 9999;
+    padding: 0;
+    margin: -74px 0 0 0;
+    position: relative;
+    top: 71px;
+    left: 0;
+}
+
+.view-enq-inner {
+    position: absolute;
+    z-index: 999999; display:none;
+    background: #eeeeee;
+    height:400px;
+    overflow:auto;
+}
+
+.view-enq-inner {}
+
+.view-enq-inner-tab {
+    border-bottom: 1px solid #d7d6d6;
+    color: #000;
+    font-size: 11px;
+    padding: 7px 10px;
+}
+
+.view-check {
+    width: 400px;
+    z-index: 9999;
+    padding: 0;
+    margin: -74px 0 0 0;
+    position: relative;
+    top: 71px;
+    left: 0;
+}
+
+.view-check-inner {
+    position: absolute;
+    z-index: 999999; display:none;
+    background: #eeeeee;
+    height:400px;
+    overflow:auto;
+}
+
+.view-check-inner {}
+
+.view-check-inner-tab {
+    border-bottom: 1px solid #d7d6d6;
+    color: #000;
+    font-size: 11px;
+    padding: 7px 10px;
+}
+
+.view-news {
+    width: 400px;
+    z-index: 9999;
+    padding: 0;
+    margin: -74px 0 0 0;
+    position: relative;
+    top: 71px;
+    left: 0;
+}
+
+.view-prods-inner {
+    position: absolute;
+    z-index: 999999;
+    display: none;
+    background: #fff;
+    overflow: auto;
+    width: 497px;
+    top: 39px;
+    border: 1px solid #999;
+    box-shadow: 0 19px 11px rgba(0,0,0,0.2);
+}
+
+.lstenqueruy .view-prods-inner .view-news-inner-tab a {
+    background: #3b7a08;
+    padding: 2px 5px;
+    color: #fff;
+}
+
+.lstenqueruy .view-prods-inner .view-news-inner-tab {
+    border: 0;
+}
+
+.lstenqueruy .view-prods-inner {
+    width: 223px;
+    background: #c91c3a;
+    border: 0;
+}
+
+.view-news-inner {}
+
+.view-news-inner-tab {
+    border-bottom: 1px solid #d7d6d6;
+    color: #000;
+    font-size: 11px;
+    padding: 7px 10px;
+}
+
+.checksome {
+    background: #b1d5ea;
+    color: #000 !important;
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 3px 7px;
+    border-radius: 27px;
+}
+nav.side-navbar ul li ul {
+    padding: 0;
+    display: none;
+}
+form input, form select {
+    width: 500px;
+    border: 1px solid #ececec;
+    height: 42px;
+}
+
+input[type="file"] {
+    background: url(PICOL_icon_Upload.svg.png);
+    background-color: rgba(0, 0, 0, 0);
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-repeat: repeat;
+    background-size: auto auto;
+    width: 400px;
+    height: 148px;
+    background-size: 128px;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-indent: 414px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    width: 25px;
+    height: auto;
+    margin: 0 3px 0 18px;
+}
+
+.checksomeshow .view-prods-inner {
+    display: block;
+}
+
+.showmusnev .dropdown{display:block;}
+
+table {
+    width: 94%;
+    margin: 31px auto !important;
+    border: 0px solid #d7d7d7;
+    background: #f5f5f5;
+}
+
+table tr td {
+    padding: 10px 8px;
+    border: 1px solid #e1e1e1;
+    color: #000;
+}
+
+table tr td a {
+    background: #667492;
+    color: #fff;
+    padding: 3px 7px;
+    margin: 0 2px 0 0;
+    border-radius: 3px;
+}
+
+table tr td a:hover {
+    background: #fff;
+    color: #667492;
+    border:1px solid #667492;
+}
+
+th {
+    text-align: inherit;
+    background: #ea2245;
+    color: #fff;
+    font-size: 13px;
+    padding: 4px 5px;
+    border: 1px solid #890707;
+}
+
+nav.side-navbar ul li li a {
+    padding-left: 27px;
+    background: #F9D7DD !Important;
+    font-size: 11px !Important;
+    padding: 11px 23px !Important;
+    border-bottom: 1px solid #f2b1bc;
+}
+
+nav.side-navbar ul li li a:hover {
+    background: #ea2245 !Important;
+}
+
+.showmusnev > a {
+    background: #ea2245;
+    color: #fff !important;
+}
+
+table tr td img {
+    border: 3px solid #f5d1d8;
+    width: auto;
+    height: 91px;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.title {
+    margin: 0 auto;
+    float: none;
+    display: block;
+    margin: 0 auto !important;
+    background: #f8d1d8;
+    width: 118%;
+    text-align: center;
+    margin: -16px 0 0 -2px !important;
+    display: block;
+}
+
+.pusers {
+    overflow: hidden;
+    width: 125px;
+    height: 125px;
+    border: 3px solid #f9d4da;
+    border-radius: 10em;
+    padding: 0;
+    margin: 0 auto;
+    float: left;
+}
+
+.pusers img {
+    width: 100%;
+    height: 100%;
+}
+
+.checksome {
+    background: #fff;
+    color: #b40606 !important;
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 3px 7px;
+    border-radius: 27px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 3px;
+}
+
+.lstenqueruy .view-prods-inner div {
+    padding: 7px 15px;
+    border-bottom: 1px solid #cbf3c1;
+}
+
+.pornifyt {
+    width: 81%;
+    float: left;
+    padding: 0 16px;
+}
+
+.myprosd {
+    width: 90px;
+    overflow: hidden;
+    height: 97px;
+    float: left;
+}
+
+.myprosd img {
+    width: 100%;
+    height: auto;
+}
+
+.porni-por2 {
+    clear: both;
+    background: #edc8c8;
+    height: 21px;
+}
+
+.pornifyt {
+    width: 81%;
+    float: left;
+    padding: 0 16px;
+}
+
+.porni-por {
+    background: #871327;
+    color: #fff;
+    padding: 3px 5px;
+}
+
+.product_id {
+    background: #fff;
+    color: #871327;
+    font-size: 14px;
+    line-height: 13px;
+    font-weight: bold;
+    padding: 2px 3px;
+    display: inline-block;
+    float: left;
+}
+
+.prod_name {
+    display: inline-block;
+    float: left;
+    font-size: 9px;
+    width: 310px;
+    font-size: 13px;
+    padding: 0 0 0 8px;
+    height: 42px;
+    background: #9f2137;
+    overflow: hidden;
+}
+
+.price {
+    font-size: 13px;
+    margin: -22px 0 0 -5px;
+    display: inline-block;
+    float: left;
+    background: #3fb900;
+    padding: 1px 5px;
+}
+
+.porni-por2 > strong, .porni-por2 > span, .porni-por2 > b {
+    font-size: 12px;
+    border-left: 1px solid #e08a8a;
+    padding: 0 7px 0 6px;
+}
+
+view-check-inner-tab {
+    border-bottom: 1px solid #d7d6d6;
+    color: #000;
+    font-size: 11px;
+    padding: 6px 0;
+    height: 113px;
+    overflow: hidden;
+    border: 7px solid #fff;
+    box-sizing: border-box;
+    box-shadow: 0 0px 2px #807f7f;
+}
+
+.myenquerys {
+    background: #f3dcdc;
+    height: 45px;
+}
+
+.pross {
+    float: left;
+}
+
+.pross .proid {
+    background: #c91c3a;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 6px;
+    font-size: 16px;
+    width: 58px;
+    text-align: center;
+}
+
+.infors {
+    float: left;
+    padding: 0 0 0 9px;
+    width: 87%;
+}
+
+.infors .name {
+    font-size: 14px;
+}
+
+.infors .email {
+    background: #000;
+    color: #fff;
+    padding: 0 3px;
+}
+
+.infors .phone {
+    clear: both;
+    font-size: 16px;
+    display: block;
+    margin: -1px 0 0 0;
+    background: #c91c3a;
+    color: #fff;
+    width: auto;
+    display: inline-block;
+}
+
+.view-prods-inner.stokesr .view-prods-inner-tab {
+    overflow: hidden;
+    position: relative;
+    height: 121px;
+    padding: 0;
+    border: 10px solid #fff;
+    border-bottom-color: rgb(255, 255, 255);
+    border-bottom-style: solid;
+    border-bottom-width: 10px;
+    border-bottom: 1px solid #999;
+}
+
+.prosd {
+    float: left;
+    overflow: hidden;
+    width: 103px;
+    height: 109px;
+    position: relative;
+}
+
+.prosd img {
+    width: 100%;
+}
+
+.prosd .product_no {
+    background: rgba(0,0,0,0.5);
+    display: block;
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.productdescription {
+    clear: both;
+    color: #484848;
+    font-size: 12px;
+}
+
+.porsilt {
+    overflow: hidden;
+    height: 22px;
+}
+
+.rightcons .price {
+    margin: 0;
+    color: #fff;
+}
+
+.porsilt .offers {
+    background: #000;
+    color: #fff;font-size: 15px;
+}
+
+.rightcons .title {
+    margin: 0 !important;
+    text-align: left;
+    font-size: 15px;
+    height: 45px;
+    padding: 0 0;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.rightcons {
+    float: left;
+    padding: 5px 0 0 11px;
+    width: 78%;
+}
+
+.prosd {
+    float: left;
+    overflow: hidden;
+    width: 103px;
+    height: 109px;
+    position: relative;
+}
+
+.vieweasr {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: #ea2245;
+    z-index: 999999;
+    color: #fff;
+    padding: 36px 0; display:none;
+    text-align: center;
+}
+
+.vieweasr li {
+    display: inline-block;
+    text-align: center;
+}
+
+.vieweasr li a {
+    color: #ea2245;
+    width: 158px;
+    padding: 5px 0;
+    font-size: 19px;
+    background: #fff;
+    border-radius: 10em;
+    margin: 0 20px;
+    font-weight: bold;
+}
+
+.view-check-inner-tab.editorss {
+    position: relative;
+}
+
+.card-body.prosclodr {
+    overflow: auto;
+    height: 543px;
+}
+
+.pusers {
+    overflow: hidden;
+    width: 111px;
+    height: auto;
+    border: 0px solid #bd6775;
+    border-radius: 0;
+    padding: 8px 0;
+    margin: 0 auto;
+    float: none;
+    display: block;
+}
+
+.editorss .vieweasr{display:block;}
+.editorss .vieweasr{display:block;}
+</style>
+
+<style>
+/* dropdown of manage product */
+nav.side-navbar ul li ul {
+    padding: 0;
+    display: none;
+}
+.showmusnev .dropdown{display:block;}
+table {
+
+    width: 94%;
+    margin: 31px auto !important;
+    border: 0px solid #d7d7d7;
+    background: #f5f5f5;
+
+}
+</style>
+<script src="{% static "js/jquery.min.js.download" %}"></script>
+<script>
+$(document).ready(function(){
+$('.checksome').click(function(){
+    $(this).parent().toggleClass('checksomeshow');
+});
+$('nav.side-navbar>ul>li>a').click(function(){
+    $(this).parent().toggleClass('showmusnev');
+});
+$('.view-prods-inner.stokesr .view-prods-inner-tab').click(function(){
+    $(this).toggleClass('editorss');
+});
+$('.newodres .view-check-inner-tab').click(function(){
+    $(this).toggleClass('editorss');
+});
+
+$('.reply-btn').click(function(){
+   $(this).parent().parent().next('.replied-comments').fadeToggle()
+  });
+});
+
+</script>
+<!-- });
+</script> -->
+<!-- dropdown style and js end here -->
+</header>
+       <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+          <!-- Sidebar Header-->
+          <div class="sidebar-header d-flex align-items-center">
+<!--<div class="avatar"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>-->
+            <div class="title">
+              <div class="pusers">
+                <img src="https://www.billmax.com/images/BillMax-shadow.jpg">
+              </div>
+            </div>
+          </div>
+          <ul class="list-unstyled">
+            <li><a href="{% url "home" %}"> <i class="icon-home"></i>Home</a></li>
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Master</a>
+              <ul class="dropdown">
+                <li><a href="{% url 'store' %}"> <i class="icon-grid"></i>Create Store</a></li>
+                <li><a href="{% url 'viewstore' %}"> <i class="icon-grid"></i>View Store</a></li>
+                <li><a href="{% url 'assign' %}"> <i class="icon-grid"></i>Assign Store</a></li>
+                <li><a href="{% url 'vassign' %}"> <i class="icon-grid"></i>View Assign Store</a></li>
+
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Master</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Accounts Master</a>
+              <ul class="dropdown">
+                <li><a href="{% url 'userapp:employee' %}"> <i class="icon-grid"></i>Add Employee</a></li>
+                <li><a href="{% url 'userapp:viewemp'  %}"> <i class="icon-grid"></i>View Employee</a></li>
+                <li><a href="{% url 'userapp:customer' %}"> <i class="icon-grid"></i>Add Customer</a></li>
+                <li><a href="{% url 'userapp:vcustomer'  %}"> <i class="icon-grid"></i>View Customer</a></li>
+
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Accounts Master</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Manage Category</a>
+              <ul class="dropdown">
+                <li><a href="{% url 'category' %}"> <i class="icon-grid"></i>Add Category </a></li>
+                <li><a href="{% url 'viewcat'  %}"> <i class="icon-grid"></i>View Category</a></li>
+                <li><a href="{% url 'subcategory' %}"> <i class="icon-grid"></i>Add Subcategory</a></li>
+                <li><a href="{% url 'viewsubcat'  %}"> <i class="icon-grid"></i>View Subcategory</a></li>
+
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Managge Category</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Manage Brand </a>
+              <ul class="dropdown">
+                <li><a href="{% url 'brand' %}"> <i class="icon-grid"></i>Add Brand</a></li>
+                <li><a href="{% url 'viewbrand' %}"> <i class="icon-grid"></i>View Brand</a></li>
+                <li><a href="{% url 'catalog' %}"> <i class="icon-grid"></i>Add Catalog</a></li>
+                <li><a href="{% url 'viewcatalog' %}"> <i class="icon-grid"></i>View Catalog</a></li>
+
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Manage Brand</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Manage Product</a>
+              <ul class="dropdown">
+					      <li><a href="{% url "aproduct" %}"> <i class="icon-grid"></i>Add Product </a></li>
+      					<li><a href="{% url 'view'%}"> <i class="icon-grid"></i>View Product </a></li>
+      					<li><a href="#"> <i class="icon-grid"></i>Wishlist</a></li>
+      					<li><a href="#"> <i class="icon-grid"></i>Order Managment</a></li>
+      					<li><a href="#"> <i class="icon-grid"></i>Sold Out Request</a></li>
+      					<li><a href="#"> <i class="icon-grid"></i>View Review</a></li>
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Manage Products</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Invoice Management</a>
+              <ul class="dropdown">
+                <li><a href="{% url "minvoice" %}"><i class="icon-grid"></i>Make Invoice</a></li>
+                <li><a href="{% url "vinvoice" %}"><i class="icon-grid"></i>View Invoice</a></li>
+
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Invoice Management</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated%}
+             <li><a href="#"> <i class="icon-grid"></i>Ticket Generation</a>
+              <ul class="dropdown">
+					      <li><a href="{% url 'tic:index' %}"> <i class="icon-grid"></i>Generate </a></li>
+      					<li><a href="{% url 'tic:ticketview' %}"> <i class="icon-grid"></i>View</a></li>
+
+              </ul></li>
+
+            {% else %}
+              <!-- <p>you are not logged in..</p> -->
+              <li><a href="{% url 'login' %}"><i class="icon-grid"></i>Ticket Generation</a>
+              </li>
+            {% endif %}
+            <li>{% if user.is_authenticated %}<a href="{% url "users" %}"><i class="icon-grid"></i>UserList</a>
+              {% else %}<a href="{% url 'login' %}"> <i class="icon-grid"></i>UserList</a></li>
+            {% endif %}
+
+          </ul>
+        </nav>
+<style>
+nav.side-navbar ul li li a {
+    padding-left: 27px;
+    background: #EEF5F9;
+    font-size: 11px !Important;
+    padding: 4px 23px;
+}
+button, input[type='submit'] {
+    cursor: pointer;
+    font-family: inherit;
+    background: green;
+    font-weight: 300 !important;
+    border: 0;
+    color: #fff;
+    padding: 7px 0;
+    font-size: 12px;
+    width: 94px;
+    margin: 0 auto;
+}
+form {
+    margin: 16px 0 21px 21px;
+    font-size: 13px;
+}
+form input[type="text"], form select, form input[type="file"] {
+    display: block;
+    margin: 0 0 11px 0;
+}table tr td {
+    padding: 10px 8px;
+}
+table {
+    width: 97%;
+    margin: 0 auto;
+    border: 1px solid #999;
+}
+form br {
+    display: none;
+}.mynotify {
+    width: 500px;
+    margin: -142px auto 0;
+}
+.title {
+    background: #f5f5f5;
+}.card-header.d-flex.align-items-center {
+    display: none !important;
+}
+
+header.page-header {
+    background: #843423;
+}
+
+.content-inner {
+    background: #4e1e14;
+}nav.navbar {
+    background: #ea4928;}
+
+a {
+    color: #fff;
+}
+
+nav.side-navbar {
+    background: #ea4928;
+    color: #fff;
+}
+
+nav.side-navbar ul li a {
+    border-bottom: 1px solid;
+    width: 192px;
+    background: #fff;
+    margin: 7px auto;
+    border-radius: 0;
+    color: #4d6bad;
+}
+
+h2.no-margin-bottom {
+    color: #fff;
+}
+
+button, input[type='submit'] {
+        cursor: pointer;
+    font-family: inherit;
+    background: green;
+    font-weight: 300 !important;
+    border: 0;
+    color: #fff;
+    padding: 7px 0;
+    font-size: 12px;
+    width: 94px;
+    margin: 22px auto 0 !important;
+    display: block;
+}.card-close {
+    display: none;
+}form input[type="text"], form select, form input[type="file"], form input[type="date"]  {
+    display: block;
+    margin: 2px 0 16px 0;
+    padding: 0;
+    height: 24px;
+    width: 100%;
+    background: #4361a2;
+    border: 1px solid #294175;
+}button, input[type='submit'] {
+    cursor: pointer;
+    font-family: inherit;
+    background: #d2207f;
+    font-weight: 300 !important;
+    border: 0;
+    color: #fff;
+    padding: 7px 0;
+    font-size: 16px;
+    width: 300px;
+    margin: 22px auto 0 !important;
+    display: block;
+    font-weight: bold !important;
+    text-transform: uppercase;
+}form input[type="text"], form select, form input[type="file"] {
+    color: #fff;
+}
+nav.side-navbar ul li a {
+    width: 90%;
+
+}
+@media(max-width:768px){
+    .fomruse {
+    display: block;    margin: 0 0 !important;
+    width: 100% !important;
+}
+.producs1 {
+ padding: 0;
+}
+}
+</style>
+{% block body_block %}
+
+{% endblock %}
+
+</body>
+</html>

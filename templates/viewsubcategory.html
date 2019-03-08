@@ -1,0 +1,54 @@
+{% extends "header.html"%}
+
+{% block body_block%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+<body>
+  <div class="content-inner">
+    <!-- Page Header-->
+    <header class="page-header">
+      <div class="container-fluid">
+        <h2 class="no-margin-bottom">View Sub-category</h2>
+      </div>
+    </header>
+    <!-- Breadcrumb-->
+    <div class="breadcrumb-holder container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+        <li class="breadcrumb-item active">View Sub-category</li>
+      </ul>
+      <table border="1 px solid">
+      <tr>
+        <th>Sub-category_Id</th>
+        <th>Sub-category_Name</th>
+        <th>Sub-category_Image</th>
+        <th>Action</th>
+      </tr>
+      {% if view %}
+      {% for cat in view %}
+      <tr>
+        <td>{{cat.id}}</td>
+        <td>{{cat.subcategory}}</td>
+        <td><img src="/media/{{cat.image}}" alt="image goes here!!"></td>
+        <td><a href="{% url 'updatesubcat' cat.pk %}">Edit</a><a class="del" href="{% url 'delsubcat' cat.pk %}">Delete</a></td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+      </table>
+
+    </div>
+    <style>
+      .del{
+        background:red;
+        color:black;
+      }
+    </style>
+
+</body>
+{% endblock %}
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+</head>
+<body>
+  <header>
+
+    <h1 style="border-top:1px solid #5D6975; border-bottom: 1px solid #5D6975;
+    text-align: center;color:#5D6975;padding:5px;"> INVOICE Details: {{order_number}}</h1>
+
+    <div style="margin-left:420px;margin-top:50px;">
+      <h3><div style=""><span>Invoice Number : </span>{{invoice_number}}</div></h3>
+      <h4><div style=""><span>DATE : </span>{{date_and_time}}</div></h4>
+    </div>
+
+    <table>
+      <h3 style="margin-top:-10px;margin-left:0px;">Billing Address</h3>
+      <tr><td>
+      <div style="  color: #5D6975;text-align:left;width:200px;margin-left: -120px;display: inline-block;font-size: 0.8em;">
+        <div><span>Order Number :</span>{{order_number}}</div>
+        <div><span>Name : </span>{{user_full_name}}</div>
+        <div><span>Contact Number : </span>{{contact_number}}</div>
+        <div><span>Address : </span>{{address}}</div>
+        <div><span>EMAIL : </span>{{email}}</div>
+      </div></td>
+      <td style="margin-left:60px;margin-top:40px;">
+    <div style="">
+      <h3 style="width:200px;">Shipping Address</h3>
+      <div style="margin-top: -20px;color: #5D6975;font-size: 0.8em;">
+        <div><span>Name :</span>{{shipping_user_full_name}}</div>
+        <div><span>Contact Number : </span>{{shipping_user_contact_no}}</div>
+        <div><span>Address :</span>{{address}} {{city}} {{zipcode}} {{country}}</div>
+        <div><span>Shipping Cost :</span>{{shipping_cost}}</div>
+      </div>
+    </div>
+    </tr></td>
+  </table>
+</header>
+<div style="margin-top:100px; ">
+  <table style=" border: 1px solid #5D6975; padding: 5px;">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Mode of Payment</th>
+      </tr>
+    </thead>
+    <tbody style="color:#5D6975">
+    
+      <tr>
+        <td>{{product_name}}</td>
+        <td>{{product_id}} Size:{{size}} GST:{{client_gst}}</td>
+        <td>{{quantity}}</td>
+        <td>{{price}}</td>
+        <td>{{mode_of_payment}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

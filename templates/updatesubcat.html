@@ -1,0 +1,28 @@
+{% extends "header.html" %}
+
+{% block body_block %}
+  <body>
+  <div class="content-inner">
+    <!-- Page Header-->
+    <header class="page-header">
+      <div class="container-fluid">
+        <h2 class="no-margin-bottom">Update Sub-category {{sucat.subcategory}}</h2>
+      </div>
+    </header>
+    <!-- Breadcrumb-->
+    <div class="breadcrumb-holder container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+        <li class="breadcrumb-item active">Update Sub-category {{sucat.subcategory}}</li>
+      </ul>
+  <ol>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit">
+    </form>
+
+  </ol>
+  </div>
+</body>
+{% endblock %}

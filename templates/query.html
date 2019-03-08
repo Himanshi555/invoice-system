@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Search based</title>
+  </head>
+  <body>
+  <form class="" method="POST">
+    {% csrf_token %}
+    <div class="">
+      <input type="text" name="search" placeholder="Search...">
+      <button type="submit" name="searc">Search</button>
+
+    </div>
+
+  </form>
+
+  {% if srch %}
+   {% for a in srch %}
+
+     {{a.product_id}}
+     {{a.product_name}}
+     {{a.quantity}}
+     {{a.price}}
+     {{a.size}}
+
+
+   {%endfor%}
+  {%endif%}
+  </body>
+</html>

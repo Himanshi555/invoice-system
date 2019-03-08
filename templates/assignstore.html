@@ -1,0 +1,40 @@
+{% extends "header.html"%}
+
+{% block body_block%}
+{% load crispy_forms_tags %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Assign Store</title>
+  </head>
+  <body>
+    <div class="content-inner">
+      <!-- Page Header-->
+      <header class="page-header">
+        <div class="container-fluid">
+          <h2 class="no-margin-bottom">Assign Store</h2>
+        </div>
+      </header>
+      <!-- Breadcrumb-->
+      <div class="breadcrumb-holder container-fluid">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+          <li class="breadcrumb-item active">Assign Store</li>
+        </ul>
+    <form  method="POST" enctype="application/x-www-form-urlencoded">
+      {% csrf_token %}
+      {{form.as_p}}
+        <!-- {{ form|crispy }} -->
+      <input type="submit" name="sub" value="Assign Store">
+    </form>
+    <style>
+
+
+
+    </style>
+  </div>
+
+  </body>
+{%endblock%}
+
+</html>

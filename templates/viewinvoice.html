@@ -1,0 +1,183 @@
+{% extends "header.html" %}
+
+{% block body_block %}
+<div class="content-inner">
+  <!-- Page Header-->
+  <header class="page-header">
+    <div class="container-fluid">
+      <h2 class="no-margin-bottom">Forms</h2>
+    </div>
+  </header>
+  <!-- Breadcrumb-->
+  <div class="breadcrumb-holder container-fluid">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+      <li class="breadcrumb-item active">Forms</li>
+    </ul>
+  </div>
+  <!-- Forms Section-->
+  <section class="forms">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+<style>
+div.ex1 {
+    overflow: auto;
+}
+</style>
+          <div class="ex1">
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                <th>Order No</th>
+                <th>Invoice No</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Name</th>
+                <th>Name Shipping</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Mobile No</th>
+                <th>Client GST</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Size</th>
+                <th>Shipping</th>
+                <th>Payment</th>
+                <th>Date</th>
+                <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for vinvoice in v_invoice %}
+              <tr>
+                <td>{{vinvoice.order_number}}</td>
+                <td>{{vinvoice.invoice_number}}</td>
+                <td>[{% for s in vinvoice.product_set.all %}
+                  {{s.product_id}},
+                {% endfor %}]</td>
+                <td>[{% for s in vinvoice.product_set.all %}
+                  {{s.product_name}},
+                {% endfor %}]</td>
+                <td>{{vinvoice.user_full_name}}</td>
+                <td>{{vinvoice.shipping_user_full_name}}</td>
+                <td>{{vinvoice.email}}</td>
+                <td>{{vinvoice.address}}</td>
+                <td>{{vinvoice.contact_number}}</td>
+                <td>{{vinvoice.client_gst}}</td>
+                <td>[{% for s in vinvoice.product_set.all %}
+                  {{s.price}},
+                {% endfor %}]</td>
+                <td>[{% for s in vinvoice.product_set.all %}
+                  {{s.quantity}},
+                {% endfor %}]</td>
+                <td>[{% for s in vinvoice.product_set.all %}
+                  {{s.size}},
+                {% endfor %}]</td>
+                <td>{{vinvoice.shipping_cost}}</td>
+                <td>{{vinvoice.mode_of_payment}}</td>
+                <td>{{vinvoice.date_and_time}}</td>
+                <td><a href="{% url 'dinvoice' pk=vinvoice.pk %}">show all</a></td>
+                <td><a href="{% url 'uinvoice' pk=vinvoice.pk %}">Update</a>
+                    <a href="{% url 'semail' pk=vinvoice.pk %}">Send to User</a>
+                    <a class="dtl" href="{% url 'deinvoice' pk=vinvoice.pk %}">Delete</a>
+                    <a class="dwl" target="_blank" href="{% url 'genpdf' pk=vinvoice.pk %}">Download</a>
+                </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+<style>
+th {
+    background: #7d7d7d;    border: 1px solid #949393;font-size: 12px;
+}
+table tr td a {
+    background: #667492;
+    color: #fff;
+    padding: 3px 7px;
+    margin: 0 2px 0 0;
+    width: 73px;
+    border-radius: 3px;border: 0 !important;
+    margin: 0 0 3px 0;
+    text-align: center;
+}
+table tr td a.dtl {
+    background: #ff0000;
+
+}
+table tr td a.dwl {
+    background:green;
+
+}
+table {
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #999;
+    margin: 0 !important;
+}
+header.page-header {
+    background: #843423;
+    color: #fff;
+}
+tbody tr:nth-child(odd){
+    background:#eeeeee;
+}
+ul.myphose {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: left;
+    top: 0;
+    bottom: 0;
+}
+tr {
+    position: relative;
+}
+ul.myphose {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: left;
+    top: 0;
+    bottom: 0;
+    font-size: 15px;
+    list-style: none; display:none;
+    background: #cdd7ef;
+    padding: 15px 14px;
+}
+ul.myphose li {
+    display: inline-block;
+    width: 9%;
+    border: 1px solid #fff;
+    padding: 6px 10px;
+}
+.kl ul.myphose{display:block;}span.showallmys {
+    cursor: pointer;
+    display: block;
+    background: #ce9e33;
+    width: 54px;
+    text-align: center;
+    color: #fff;
+}
+li.clised {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 43px !important;
+    height: 31px;
+    background: #ff0000;
+    border: 0 !important;
+    text-align: center;
+    color: #fff;
+    font-weight: bold; cursor:pointer;
+}
+</style>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

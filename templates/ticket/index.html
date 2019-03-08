@@ -1,0 +1,29 @@
+{% extends "header.html" %}
+
+{% block body_block %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ticket Generate</title>
+  </head>
+  <body>
+    <div class="content-inner">
+      <!-- Page Header-->
+      <header class="page-header">
+        <div class="container-fluid">
+          <h2 class="no-margin-bottom">Ticket Generate Form</h2>
+        </div>
+      </header>
+      <div class="container-fluid">
+    <form class="" method="POST">
+      {% csrf_token %}
+      <label>subject</label>
+      {{form.subject}}
+      <p><label>description</label></p>
+      {{form.description}}
+      <input type="submit" name="sub" value="Submit">
+    </form>
+  </div></div>
+</body>
+{% endblock %}
+</html>

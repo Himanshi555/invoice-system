@@ -1,0 +1,61 @@
+{% extends "header.html"%}
+
+{% block body_block%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+<body>
+  <div class="content-inner">
+    <!-- Page Header-->
+    <header class="page-header">
+      <div class="container-fluid">
+        <h2 class="no-margin-bottom">View Assign Store</h2>
+      </div>
+    </header>
+    <!-- Breadcrumb-->
+    <div class="breadcrumb-holder container-fluid">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+        <li class="breadcrumb-item active">View Assign Store</li>
+      </ul>
+
+
+      <table border="1 px solid">
+      <tr>
+        <th>AssignStore_Id</th>
+        <th>Store_Name</th>
+        <th>Employee_Name</th>
+        <th>Action</th>
+      </tr>
+      {% if view %}
+      <tr>
+        {% for v in view%}
+        <td>{{v.id}}</td>
+        <td>{{v.select_store}}</td>
+        <td>{{v.select_employee}}</td>
+        <td><a href="{% url 'uassign' v.pk%}">Edit</a><a class="del" href="{% url 'dassign' v.pk%}">Delete</a></td>
+      </tr>
+      {%endfor%}
+      {% endif %}
+      </table>
+
+    </div>
+    <style>
+      .search{
+        width:300px;
+        margin-left:300px;
+      }
+
+      .del{
+        color:black;
+        background:red;
+      }
+    </style>
+
+</body>
+{% endblock %}
+
+</html>

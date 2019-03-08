@@ -1,0 +1,70 @@
+{% extends "header.html"%}
+
+{% block body_block %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Users Infromation</title>
+  </head>
+  <body>
+    <div class="content-inner">
+      <!-- Page Header-->
+      <header class="page-header">
+        <div class="container-fluid">
+          <h2 class="no-margin-bottom">Userslist</h2>
+        </div>
+      </header>
+      <!-- Breadcrumb-->
+      <div class="breadcrumb-holder container-fluid">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url "home" %}">Home</a></li>
+          <li class="breadcrumb-item active">Userslist</li>
+        </ul>
+      </div>
+
+    <table border="3px black" width="100%">
+      <tr>
+        <th>User id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>More</th>
+      </tr>
+
+      {% if users %}
+      {% for user in users%}
+
+      <tr>
+        {% if user.id > 5 %}
+        <td>{{user.id}}</td>
+
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td><a href="{% url 'chat' user.pk%}">chat</a></td>
+        {% endif %}
+
+      </tr>
+
+      {% endfor %}
+      {% endif %}
+    </table>
+    <style>
+      th {
+          background: #7d7d7d;    border: 1px solid #949393;font-size: 12px;
+      }
+
+      table tr td a{
+        background: #667492;
+        color: #fff;
+        padding: 2px 17px;
+        margin: 0 2px 0 0;
+        border-radius: 3px;border: 0 !important;
+        margin: 0 0 3px 0;
+        text-decoration: none;
+      }
+      table tr td{
+        text-align: center;
+      }
+    </style>
+  </body>
+  {% endblock %}
+</html>

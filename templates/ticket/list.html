@@ -20,7 +20,7 @@
            {% for v in listticket %}
              <div class="col-md-6">
                <div class="img-thumbnail">
-                 <a href="{% url 'tic:Detail_view' pk=v.pk %}">{{v.user}}</a>
+                 <a href="{% url 'tic:Detail_view' pk=v.pk %}">{{v.id}}&nbsp{{v.user}}</a>
                   <small style="float:right">{{v.date_and_time}}</small><br>
                 <em>Subject:  {{v.subject}}</em>
                 <p>Description :  {{v.description}}</p>
